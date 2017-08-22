@@ -52,9 +52,12 @@ public class Luban implements Handler.Callback {
    */
   private File getImageCacheFile(Context context, String suffix) {
     suffix = TextUtils.isEmpty(suffix) ? ".jpg" : suffix;
-
+    String fileName = System.currentTimeMillis() + "_" + (int) (Math.random() * 1000) + suffix;
+    if (!TextUtils.isEmpty(mTargetDir) && new File(mTargetDir).exists()) {
+      return new File(mTargetDir + File.separator + fileName);
+    }
     if (getImageCacheDir(context) != null) {
-      return new File(getImageCacheDir(context) + "/" + System.currentTimeMillis() + (int) (Math.random() * 1000) + suffix);
+      return new File(getImageCacheDir(context) + File.separator + fileName);
     }
     return null;
   }
